@@ -7,7 +7,6 @@ const DATA = 'DATA';
 const BASE_URL = 'https://my.callofduty.com/api/papi-client';
 
 const getDataFromAPI = (uri) => {
-  debugger
   return (dispatch) => {
     axios.get(uri)
       .then( res => dispatch({

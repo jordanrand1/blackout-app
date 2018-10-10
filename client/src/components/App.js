@@ -11,6 +11,7 @@ import AuthRoute from './AuthRoute';
 import FetchUser from './FetchUser';
 import Profile from './Profile';
 import Matches from './Matches';
+import '../index.css';
 
 class App extends Component {
   render() {
