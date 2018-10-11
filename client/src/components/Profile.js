@@ -1,96 +1,47 @@
-import React from 'react';
+import React from 'react'
 import {
-  Dropdown,
-  Form,
-  Button,
-} from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import { getProfile } from '../reducers/codapi';
+  Header,
+  List,
+  Card,
+  Image,
+} from 'semantic-ui-react'
+import { connect } from 'react-redux'
 
 class Profile extends React.Component {
 
-  state = {
-    title: '',
-    platform: '',
-    username: '',
-    days: '',
-    type: '',
-    time: '',
-    mode: '',
-  }
-
-  handleChange = (e) => {
-    const { name, value } = e.target
-    this.setState({
-      [name]: value
-    })
-  }
-
-  handleSubmit = (e) => {
-    const { dispatch } = this.props
-    dispatch(getProfile(this.state))
-  }
-
-  render() {
-    const platforms =
-    [
-      {
-        text: 'PlayStation',
-        value: 'psn'
-      },
-      {
-        text: 'XBOX',
-        value: 'xbl'
-      },
-      {
-        text: 'PC (Steam)',
-        value: 'steam'
-      },
-    ]
-
-    const titles =
-    [
-      {
-        text: 'Black Ops 3',
-        value: 'bo3'
-      },
-      {
-        text: 'WWII',
-        value: 'wwii'
-      },
-      {
-        text: 'Infinite Warfare',
-        value: 'iw'
-      },
-    ]
-
+  profileView = () => {
+    const { username, mp, } = this.props.profile
+    if (mp === undefined) {
+      return
+    }
     return (
       <>
-        <Dropdown 
-          placeholder="Select Platform" 
-          options={platforms} 
-          onChange={(e, data) => this.setState({ platform: data.value })}
-        />
-        <Form.Input
-            value={this.state.username}
-            name='username'
-            placeholder='Username'
-            onChange={this.handleChange}
-          >
-        </Form.Input>
-        <Dropdown 
-          placeholder="Select Title" 
-          options={titles} 
-          onChange={(e, data) => this.setState({ title: data.value })}
-        />
-        <Button onClick={this.handleSubmit}>Submit</Button>
-      </>
+        <Header as="h1">{username}</Header>
+        <Header as="h3">Level: {mp.level}</Header>
+        <p>Kills: {mp.lifetime.all.kills}</p>
+        <p>Deaths: {mp.lifetime.all.deaths}</p>
+        <p>K/D Ratio: {mp.lifetime.all.kdRatio}</p>
+        <p>Wins: {mp.lifetime.all.wins}</p>
+        <p>Losses: {mp.lifetime.all.losses}</p>
+       </>
     )
   }
+
+      render() {
+        return(
+          <Card>
+            <Card.Content>
+              { this.profileView() }
+            </Card.Content>
+          </Card>
+        )
+      }
 }
 
 const mapStateToProps = (state) => {
-  return { data: state.codapi }
+  return {
+    profile: state.codapi
+  }
 }
 
 export default connect(mapStateToProps)(Profile)
