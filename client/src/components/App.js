@@ -12,11 +12,19 @@ import FetchUser from './FetchUser';
 import Profile from './Profile';
 import Matches from './Matches';
 import '../index.css';
+import styled from 'styled-components';
+
+const BlackBody = styled.div`
+  font-family: 'K2D', sans-serif;
+  background-color: black;
+  color: white;
+`
 
 class App extends Component {
+
   render() {
     return (
-      <div>
+      <BlackBody>
         <NavBar />
         <Flash />
         <FetchUser>
@@ -29,7 +37,7 @@ class App extends Component {
             <Route component={NoMatch} />
           </Switch>
         </FetchUser>
-      </div>
+      </BlackBody>
     );
   }
 }

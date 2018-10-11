@@ -13,15 +13,15 @@ const getDataFromAPI = (uri) => {
         type: DATA,
         data: res.data.data
       }) )
-      .catch( res => {debugger})
+      .catch( res => {setFlash(res, 'red')})
   }
 }
 
 export const getLeaderboard = (params) => {
-  const { title, platform, time, type, mode, username } = params
+  const { title, platform, time, type, mode, page } = params
   const leaderboardEndpoint = BASE_URL + '/leaderboards/v2'
   const uri = 
-    `${leaderboardEndpoint}/title/${title}/platform/${platform}/time/${time}/type/${type}/mode/${mode}/gamer/${username}`
+    `${leaderboardEndpoint}/title/${title}/platform/${platform}/time/${time}/type/${type}/mode/${mode}/page/${page}`
   return getDataFromAPI(uri)
 }
 
