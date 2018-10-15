@@ -1,14 +1,15 @@
 import React from 'react';
 import { getLeaderboard } from '../reducers/codapi';
 import { connect } from 'react-redux';
+import { getProfile } from '../reducers/codapi';
 import { 
   Card,
   Image,
   Icon,
   Container,
-  Header,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
+import user from '../reducers/user';
 
 const BigText = styled.h1`
   font-family: 'K2D', sans-serif;
@@ -30,8 +31,8 @@ const HeroImg = styled.div`
 class Home extends React.Component {
 
   state = {
-    title: 'bo3',
-    platform: 'pc',
+    title: 'wwii',
+    platform: 'psn',
     time: 'alltime',
     type: 'core',
     mode: 'war',
@@ -42,28 +43,25 @@ class Home extends React.Component {
     this.props.dispatch(getLeaderboard(this.state))
   }
 
+  goToProfile = (username) => {
+    const { title, platform } = this.state
+    const params = {title, platform, username: username}
+    const { history } = this.props
+  }
+
   entryItem = () => {
     const { entries } = this.props.leaderBoardData
     if (entries === undefined)
       return
     return entries.map(entry => {
       return(
-        <>
-          <Card color="orange">
-            <Image src='/images/avatar/large/daniel.jpg' />
-            <Card.Content>
-              <Card.Header>{entry.username}</Card.Header>
-              <Card.Meta>{entry.rank}</Card.Meta>
-              <Card.Description>KD: {entry.values.kdRatio.toFixed(2)} | Rating {entry.rating} | Games Played: {entry.values.gamesPlayed}</Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-              <a>
-                <Icon name='user' />
-                10 Friends
-              </a>
-            </Card.Content>
-            </Card>
-        </>
+        <Card key={entry.rank} color="orange" onClick={this.goToProfile(entry.username)}>
+          <Card.Content>
+            <Card.Header>{entry.username}</Card.Header>
+            <Card.Meta>Rank: #{entry.rank}</Card.Meta>
+            <Card.Description>KD: {entry.values.kdRatio.toFixed(2)} | Rating {entry.rating} | Games Played: {entry.values.gamesPlayed}</Card.Description>
+          </Card.Content>
+        </Card>
       )
     })
   }

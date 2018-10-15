@@ -61,6 +61,10 @@ class NavBar extends Component {
     const titles =
     [
       {
+        text: 'Black Ops 4',
+        value: 'bo4'
+      },
+      {
         text: 'Black Ops 3',
         value: 'bo3'
       },
@@ -88,7 +92,6 @@ class NavBar extends Component {
             onChange={(e, data) => this.setState({ platform: data.value })}
           />
           <Form.Input
-              circular
               value={this.state.username}
               name='username'
               placeholder='Username'
@@ -97,7 +100,6 @@ class NavBar extends Component {
           </Form.Input>
           <Dropdown 
             selection
-            inverted
             style={styles.navItem}
             placeholder="Select Title" 
             options={titles} 
