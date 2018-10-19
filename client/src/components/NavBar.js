@@ -56,6 +56,10 @@ class NavBar extends Component {
         text: 'PC (Steam)',
         value: 'steam'
       },
+      {
+        text: 'PC (Battle.net)',
+        value: 'bnet'
+      },
     ]
 
     const titles =

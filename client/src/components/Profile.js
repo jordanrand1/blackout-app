@@ -4,6 +4,7 @@ import {
   List,
   Card,
   Image,
+  Container,
 } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
@@ -16,24 +17,22 @@ class Profile extends React.Component {
     }
     return (
       <>
-        <Header as="h1">{username}</Header>
-        <Header as="h3">Level: {mp.level}</Header>
-        <p>Kills: {mp.lifetime.all.kills}</p>
-        <p>Deaths: {mp.lifetime.all.deaths}</p>
-        <p>K/D Ratio: {mp.lifetime.all.kdRatio}</p>
-        <p>Wins: {mp.lifetime.all.wins}</p>
-        <p>Losses: {mp.lifetime.all.losses}</p>
+        <Header as="h1"> {username}</Header>
+        <Header as="h3"> Level: {mp.level}</Header>
+        <p> Kills: {mp.lifetime.all.kills}</p>
+        <p> Deaths: {mp.lifetime.all.deaths}</p>
+        <p> K/D Ratio: {mp.lifetime.all.kdRatio}</p>
+        <p> Wins: {mp.lifetime.all.wins}</p>
+        <p> Losses: {mp.lifetime.all.losses}</p>
        </>
     )
   }
 
       render() {
         return(
-          <Card>
-            <Card.Content>
+            <Container>
               { this.profileView() }
-            </Card.Content>
-          </Card>
+            </Container>
         )
       }
 }
