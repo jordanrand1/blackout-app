@@ -9,29 +9,32 @@ import {
 import { getMatches } from '../reducers/codapi'
 import { connect } from 'react-redux'
 
+
+
+
 class Matches extends React.Component {
- state = { title: 'bo4', platform: 'xbl', username: 'mastercomandr87', days: 14  }
 
-componentDidMount() {
- this.props.dispatch(getMatches(this.state))
-}
-
+  componentDidMount() {
+    const { username } = this.props.matches
+    const { title, platform } = this.props.matches
+    const params = { title, platform, username, days: 20 }
+    this.props.dispatch(getMatches(params))
+  }
 
 matchView = () => {
-  const { matches } = this.props.matches
-  if (matches === undefined)
-    return
-  return matches.map(match => {
-    return(
-      <Card>
-        <Card.Content>
-          <Card.Header>Map: {match.map}</Card.Header>
-          <Card.Meta>Mode: {match.mode}</Card.Meta>
-          <Card.Description>Result: {match.result}</Card.Description>
-        </Card.Content>
-      </Card>
-    )
-  })
+  // if (matches === undefined)
+  //   return
+  // return matches.map(match => {
+  //   return(
+  //     <Card>
+  //       <Card.Content>
+  //         <Card.Header>Map: {match.map}</Card.Header>
+  //         <Card.Meta>Mode: {match.mode}</Card.Meta>
+  //         <Card.Description>Result: {match.result}</Card.Description>
+  //       </Card.Content>
+  //     </Card>
+  //   )
+  // })
 }
 
 
@@ -50,9 +53,7 @@ render() {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    matches: state.codapi
-  }
+  return { matches: state.codapi }
 }
 
 export default connect(mapStateToProps)(Matches)

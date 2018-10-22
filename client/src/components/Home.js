@@ -61,7 +61,7 @@ class Home extends React.Component {
     const { title, platform } = this.state
     const params = {title, platform, username: username}
     this.props.dispatch(getProfile(params))
-    this.props.history.push('/profile')
+    this.props.history.push(`/profile/${username}`)
   }
 
   entryItem = () => {

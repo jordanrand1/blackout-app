@@ -29,7 +29,7 @@ class NavBar extends Component {
   handleSubmit = (e) => {
     const { dispatch } = this.props
     dispatch(getProfile(this.state))
-    this.props.history.push('/profile')
+    this.props.history.push(`/profile/${this.state.username}`)
   }
 
   render() {
