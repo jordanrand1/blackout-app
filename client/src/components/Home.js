@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { getProfile } from '../reducers/codapi';
 import { 
   Card,
-  Image,
+  Menu,
+  Dropdown,
   Icon,
   Container,
   Button,
@@ -27,6 +28,10 @@ const HeroImg = styled.div`
   height: 500px;
   background-size: cover;
   background-position: 0px -50px;
+`
+
+const PlayerCard = styled(Card)`
+  cursor: pointer
 `
 
 
@@ -65,24 +70,81 @@ class Home extends React.Component {
       return
     return entries.map(entry => {
       return(
-        <Card key={entry.rank} color="orange">
+        <PlayerCard key={entry.rank} color="orange">
           <Card.Content onClick={() => this.goToProfile(entry)}>
             <Card.Header>{entry.username}</Card.Header>
             <Card.Meta>Rank: #{entry.rank}</Card.Meta>
-            <Card.Description>KD: {entry.values.kdRatio.toFixed(2)} | Rating {entry.rating} | Games Played: {entry.values.gamesPlayed}</Card.Description>
+            <Card.Description>KD: {entry.values.kdRatio.toFixed(2)} | Rating {entry.rating}</Card.Description>
           </Card.Content>
-        </Card>
+        </PlayerCard>
       )
     })
   }
 
   render() {
+
+    const platforms =
+    [
+      {
+        text: 'PlayStation',
+        value: 'psn'
+      },
+      {
+        text: 'XBOX',
+        value: 'xbl'
+      },
+      {
+        text: 'PC (Steam)',
+        value: 'steam'
+      },
+      {
+        text: 'PC (Battle.net)',
+        value: 'bnet'
+      },
+    ]
+
+    const titles =
+    [
+      {
+        text: 'Black Ops 4',
+        value: 'bo4'
+      },
+      {
+        text: 'Black Ops 3',
+        value: 'bo3'
+      },
+      {
+        text: 'WWII',
+        value: 'wwii'
+      },
+      {
+        text: 'Infinite Warfare',
+        value: 'iw'
+      },
+    ]
+
     return(
       <>
         <HeroImg>
           <BigText textAlign="center">Blackout Tracker</BigText>
         </HeroImg>
         <Container>
+          <Menu inverted pointing secondary fluid widths={4}>
+            <Dropdown 
+              selection
+              placeholder="Select Platform" 
+              options={platforms} 
+              value={this.state.platform}
+              onChange={(e, data) => this.setState({ platform: data.value }, () => {this.props.dispatch(getLeaderboard(this.state)) })}
+            />
+            <Dropdown 
+              selection
+              placeholder="Select Title" 
+              options={titles} 
+              value={this.state.title}
+              onChange={(e, data) => this.setState({ title: data.value }, () => {this.props.dispatch(getLeaderboard(this.state)) })}
+            />
+          </Menu>
           <Card.Group itemsPerRow={4}>
             {this.entryItem()}
           </Card.Group>
