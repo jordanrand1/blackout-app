@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import Matches from './Matches'
 import { getMatches } from '../reducers/codapi'
 
+import Chart from './Chart'
 
 class Profile extends React.Component {
  
@@ -36,6 +37,7 @@ class Profile extends React.Component {
         <p> K/D Ratio: {mp.lifetime.all.kdRatio}</p>
         <p> Wins: {mp.lifetime.all.wins}</p>
         <p> Losses: {mp.lifetime.all.losses}</p>
+        <Chart profile={this.props.profile}/>
        </>
     )
   }
