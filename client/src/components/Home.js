@@ -7,6 +7,8 @@ import {
   Image,
   Icon,
   Container,
+  Button,
+  Grid,
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import user from '../reducers/user';
@@ -31,7 +33,7 @@ const HeroImg = styled.div`
 class Home extends React.Component {
 
   state = {
-    title: 'wwii',
+    title: 'bo3',
     platform: 'psn',
     time: 'alltime',
     type: 'core',
@@ -41,6 +43,12 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.props.dispatch(getLeaderboard(this.state))
+  }
+
+  changePage = (num) => {
+    this.setState({page: this.state.page + num}, () => {
+      this.props.dispatch(getLeaderboard(this.state))
+    })
   }
 
   goToProfile = (entry) => {
@@ -78,6 +86,28 @@ class Home extends React.Component {
           <Card.Group itemsPerRow={4}>
             {this.entryItem()}
           </Card.Group>
+          <Grid>
+            <Grid.Column width={4}>
+            </Grid.Column>
+            <Grid.Column width={8}>
+              <Button.Group fluid>
+                { this.state.page === 1 ? 
+                <div></div> 
+                  : 
+                <Button icon labelPosition='left' onClick={() => this.changePage(-1)}>
+                  Previous
+                  <Icon name='left arrow' />
+                </Button>
+                }
+                <Button icon labelPosition='right' onClick={() => this.changePage(1)}>
+                  Next
+                  <Icon name='right arrow' />
+                </Button>
+              </Button.Group>
+            </Grid.Column>
+            <Grid.Column width={4}>
+            </Grid.Column>
+          </Grid>
         </Container>
       </>
     )

@@ -18,6 +18,7 @@ const getDataFromAPI = (uri) => {
 
 export const getLeaderboard = (params) => {
   const { title, platform, time, type, mode, page } = params
+  console.log(page)
   const leaderboardEndpoint = BASE_URL + '/leaderboards/v2'
   const uri = 
     `${leaderboardEndpoint}/title/${title}/platform/${platform}/time/${time}/type/${type}/mode/${mode}/page/${page}`
