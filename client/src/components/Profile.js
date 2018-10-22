@@ -17,8 +17,8 @@ class Profile extends React.Component {
     }
     return (
       <>
-        <Header as="h1"> {username}</Header>
-        <Header as="h3"> Level: {mp.level}</Header>
+        <Header as="h1" inverted color="white"> {username}</Header>
+        <Header as="h2" inverted color="white"> Level: {mp.level}</Header>
         <p> Kills: {mp.lifetime.all.kills}</p>
         <p> Deaths: {mp.lifetime.all.deaths}</p>
         <p> K/D Ratio: {mp.lifetime.all.kdRatio}</p>
