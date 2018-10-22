@@ -43,10 +43,12 @@ class Home extends React.Component {
     this.props.dispatch(getLeaderboard(this.state))
   }
 
-  goToProfile = (username) => {
+  goToProfile = (entry) => {
+    const { username } = entry
     const { title, platform } = this.state
     const params = {title, platform, username: username}
-    const { history } = this.props
+    this.props.dispatch(getProfile(params))
+    this.props.history.push('/profile')
   }
 
   entryItem = () => {
@@ -55,8 +57,8 @@ class Home extends React.Component {
       return
     return entries.map(entry => {
       return(
-        <Card key={entry.rank} color="orange" onClick={this.goToProfile(entry.username)}>
-          <Card.Content>
+        <Card key={entry.rank} color="orange">
+          <Card.Content onClick={() => this.goToProfile(entry)}>
             <Card.Header>{entry.username}</Card.Header>
             <Card.Meta>Rank: #{entry.rank}</Card.Meta>
             <Card.Description>KD: {entry.values.kdRatio.toFixed(2)} | Rating {entry.rating} | Games Played: {entry.values.gamesPlayed}</Card.Description>
