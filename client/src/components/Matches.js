@@ -6,20 +6,12 @@ import {
   Image,
   Container,
 } from 'semantic-ui-react'
-import { getMatches } from '../reducers/codapi'
 import { connect } from 'react-redux'
 
 
 
 
 class Matches extends React.Component {
-
-  componentDidMount() {
-    const { username } = this.props.matches
-    const { title, platform } = this.props.matches
-    const params = { title, platform, username, days: 20 }
-    this.props.dispatch(getMatches(params))
-  }
 
 matchView = () => {
   // if (matches === undefined)
@@ -52,8 +44,4 @@ render() {
 }
 }
 
-const mapStateToProps = (state) => {
-  return { matches: state.codapi }
-}
-
-export default connect(mapStateToProps)(Matches)
+export default Matches

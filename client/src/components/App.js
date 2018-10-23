@@ -30,7 +30,7 @@ class App extends Component {
         <FetchUser>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/profile/:username" component={Profile} />
+            <Route exact path="/:username/:title/:platform" component={Profile} />
             <Route exact path="/matches" component={Matches} />
             <AuthRoute exact path="/login" component={Login} />
             <AuthRoute exact path="/register" component={Register} />

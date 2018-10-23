@@ -9,18 +9,32 @@ import {
 } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import Matches from './Matches'
-import { getMatches } from '../reducers/codapi'
+import { getProfile } from '../reducers/codapi'
+import axios from 'axios'
+import { setFlash } from '../reducers/flash'
 
 import Chart from './Chart'
 
 class Profile extends React.Component {
+
+  state = {
+    matches: []
+  }
  
   componentDidMount() {
-    const { username } = this.props.match.params
-    const { title, platform } = this.props.profile
-    const params = { title, platform, username, days: 20 }
-    this.props.dispatch(getMatches(params))
     debugger
+    const BASE_URL = 'https://my.callofduty.com/api/papi-client';
+    const { title, platform, username } = this.props.match.params
+    const params = {title, platform, username, days: 31}
+
+    this.props.dispatch(getProfile(params))
+
+    const matchesEndpoint = BASE_URL + '/crm/cod/v2'
+    const uri = 
+      `${matchesEndpoint}/title/${title}/platform/${platform}/gamer/${username}/matches/days/${params.days}`
+    axios.get(uri)
+        .then( res => { this.setState({matches: res.data.data.matches}) } )
+        .catch( res => {setFlash(res, 'red')})
   }
 
   profileView = () => {
@@ -51,7 +65,7 @@ class Profile extends React.Component {
               </div>
             <Divider />
             <div>
-              <Matches profile={this.props.profile} />
+              <Matches matches={this.state.matches} />
             </div>
             </Container>
         )

@@ -57,11 +57,7 @@ class Home extends React.Component {
   }
 
   goToProfile = (entry) => {
-    const { username } = entry
-    const { title, platform } = this.state
-    const params = {title, platform, username: username}
-    this.props.dispatch(getProfile(params))
-    this.props.history.push(`/profile/${username}`)
+    this.props.history.push(`/${entry.username}/${this.state.title}/${this.state.platform}`)
   }
 
   entryItem = () => {
